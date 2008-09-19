@@ -17,7 +17,7 @@
 development:
   adapter: mysql
   encoding: utf8
-  database: week1_start_development
+  database: depot_development
   username: root
   password:
   socket: /tmp/mysql.sock
@@ -28,7 +28,7 @@ development:
 test:
   adapter: mysql
   encoding: utf8
-  database: week1_start_test
+  database: depot_test
   username: root
   password:
   socket: /tmp/mysql.sock
@@ -36,7 +36,7 @@ test:
 production:
   adapter: mysql
   encoding: utf8
-  database: week1_start_production
+  database: depot_production
   username: root
   password: 
   socket: /tmp/mysql.sock
