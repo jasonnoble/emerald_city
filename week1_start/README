@@ -7,5 +7,5 @@
 3. Create the database by running "rake db:create" and "rake db:migrate"
 4. Start the server by running "ruby script/server"
 5. Go to http://localhost:3000/ and get "Welcome aboard: You're riding the Rails!"
-6. Follow the book to start developing your application
+6. Start Reading Chapter 5 of Agile Web Development with Rails (Third Edition)
 
