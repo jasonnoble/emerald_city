@@ -1,0 +1,25 @@
+
+= Emerald_city App 
+This is the code for a bunch of Atlanta area people to get together and learn
+Ruby on Rails.
+
+This code is heavily based on the book 
+Agile Web Development with Rails, Third Edition, published by The Pragmatic Bookshelf.  
+It's avilable online here:
+
+  http://pragprog.com/titles/rails3/agile-web-development-with-rails-third-edition
+
+Large parts and portions of this code are copyrighted by The Pragmatic Bookshelf.  The text
+of their copyright is listed as follows:
+
+  #---
+  # Excerpted from "Agile Web Development with Rails, 3rd Ed.",
+  # published by The Pragmatic Bookshelf.
+  # Copyrights apply to this code. It may not be used to create training material, 
+  # courses, books, articles, and the like. Contact us if you are in doubt.
+  # We make no guarantees that this code is fit for any purpose. 
+  # Visit http://www.pragmaticprogrammer.com/titles/rails3 for more book information.
+  #---
+
+Any and all modifications that I have made to this code that are not copyrighted by The Pragmatic
+Bookshelf are released under the GPL v2.0 license.
