@@ -1,0 +1,10 @@
+<h1>Your Pragmatic Catalog</h1> 
+
+<% for product in @products -%> 
+	<div class="entry"> 
+		<%= image_tag(product.image_url) %> 
+		<h3><%=h product.title %></h3> 
+		<%= product.description %> 
+		<span class="price"><%= product.price %></span> 
+	</div> 
+<% end %> 

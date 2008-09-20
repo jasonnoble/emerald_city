@@ -17,6 +17,10 @@ class Product < ActiveRecord::Base
                       :message  =>  'must be a URL for GIF, JPG ' +
                                     'or PNG image.(gif|jpg|png)'
   
+  def self.find_products_for_sale
+    find(:all, :order => "title")
+  end
+  
   protected
   def price_must_be_at_least_a_cent
     # Add an error on price if the price is < $0.01
