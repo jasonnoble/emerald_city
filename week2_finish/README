@@ -11,7 +11,23 @@
 5. Go to http://localhost:3000/ and get "Welcome aboard: You're riding the Rails!"
 6. Start Reading Chapter 7 of Agile Web Development with Rails (Third Edition)
 
-== Week 1 Summary
+== Week 2 Summary
+This week we added a shopping cart to our Depot application.  We added the Store controller and the associated view pages.
+
+Tasks Covered:
+	script/generate controller XXXXXXX YYYYYY YYYYYY (XXXXXXX = controller name, YYYYYY = function names in the controller)
+	Adding a class method to the Product model
+		def self.function_name
+	Implemented a view and a layout to improve how the store looks
+		app/views/store/...
+		app/layouts/...
+	Created a stylesheet for our application
+		public/stylesheets/depot.css
+	Used a helper function to format our Price in the views
+	Added a button (button_to) to provide a way for the customer to add a book to their shopping cart
+	
+== Past Weeks
+=== Week 1 Summary
 
 This week we added to our Depot shopping cart.  We added the Products Model and the scaffold
 pages needed to view the product details.
