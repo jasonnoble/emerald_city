@@ -1,20 +1,10 @@
 class StoreController < ApplicationController
   def index
-=begin
-    blah blah blah
-    blah
-=end
-    #if session[:counter].nil?
-    #  session[:counter] = 0
-    #end
-    session[:counter] = session[:counter].nil? ? 1 : session[:counter] + 1
-    #session[:counter] ||= 0
-    #session[:counter] += 1
     @products = Product.find_products_for_sale
+    @cart = find_cart
   end
   
   def add_to_cart
-    session[:counter] = 0
     begin
       product = Product.find(params[:id])
     rescue ActiveRecord::RecordNotFound
@@ -23,9 +13,9 @@ class StoreController < ApplicationController
     else
       @cart = find_cart
       @cart.add_product(product)
-      #redirect_to :action => :index
-      #redirect_to_index("Product added")
-      flash[:notice] = "I added your product"
+      respond_to do |format|
+        format.js
+      end
     end
   end
   
@@ -35,8 +25,8 @@ class StoreController < ApplicationController
   end
   
   private
-  def redirect_to_index(msg)
-    flash[:notice] = msg
+  def redirect_to_index(msg = nil)
+    flash[:notice] = msg if msg
     redirect_to :action => :index
   end
   

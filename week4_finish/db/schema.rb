@@ -17,7 +17,6 @@ ActiveRecord::Schema.define(:version => 20081010032427) do
     t.string   "image_url"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "author",                                    :default => "My Default Author"
     t.decimal  "price",       :precision => 8, :scale => 2, :default => 0.0
   end
 
