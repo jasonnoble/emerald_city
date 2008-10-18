@@ -13,7 +13,9 @@ class StoreController < ApplicationController
     else
       @cart = find_cart
       @cart.add_product(product)
-      redirect_to_index
+      respond_to do |format|
+        format.js
+      end
     end
   end
   
