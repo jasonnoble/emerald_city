@@ -10,8 +10,10 @@ class Cart
     if current_item
       current_item.increment_quantity
     else
-      @items << CartItem.new(product)
+      current_item = CartItem.new(product)
+      @items << current_item
     end
+    current_item
   end
   
   def total_price
