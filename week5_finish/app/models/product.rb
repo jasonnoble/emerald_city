@@ -1,4 +1,5 @@
 class Product < ActiveRecord::Base
+  has_many :line_items
   # Validate that a Title, Description and Image URL were submitted
   validates_presence_of :title, :description, :image_url
   

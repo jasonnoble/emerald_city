@@ -1,3 +1,4 @@
+page.select("div#notice").each { |div| div.hide }
 page.replace_html("cart", :partial => "cart", :object => @cart)
 page[:current_item].visual_effect :highlight, 
                                   :startcolor => "#88ff88",
