@@ -2,6 +2,7 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
+  layout "store"
   before_filter :authorize, :except => :login
   
   session :session_key => '_depot_session_ids'

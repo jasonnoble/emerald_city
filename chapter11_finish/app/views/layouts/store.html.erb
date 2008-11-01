@@ -13,13 +13,21 @@
 	</div> 
 	<div id="columns"> 
 		<div id="side"> 
-			<% hidden_div_if(@cart.items.empty?, :id => "cart") do %>
-				<%= render(:partial => "cart", :object => @cart) %>
+			<% if @cart %>
+				<% hidden_div_if(@cart.items.empty?, :id => "cart") do %>
+					<%= render(:partial => "cart", :object => @cart) %>
+				<% end %>
 			<% end %>
-			<a href="http://www....">Home</a><br /> 
-			<a href="http://www..../faq">Questions</a><br /> 
-			<a href="http://www..../news">News</a><br /> 
-			<a href="http://www..../contact">Contact</a><br /> 
+			<%= link_to 'Store', :controller => :store %><br />
+						
+			<% if session[:user_id] %>
+				<br />
+				<%= link_to 'Orders', 	:controller => 'admin' %><br />
+				<%= link_to 'Products', :controller => 'products' %><br />
+				<%= link_to 'Users', 	:controller => 'users' %><br />
+				<br />
+				<%= link_to 'Logout', :controller => :admin, :action => 'logout' %>
+			<% end %>
 		</div> 
 		<div id="main"> 
 			<% if flash[:notice] %>
