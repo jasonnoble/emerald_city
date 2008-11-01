@@ -63,4 +63,8 @@ class StoreController < ApplicationController
     # Return new or existing cart
     session[:cart]
   end
+  
+  protected
+  def authorize    
+  end
 end

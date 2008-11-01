@@ -4,7 +4,10 @@ class AdminController < ApplicationController
       user = User.authenticate(params[:name], params[:password])
       if user
         session[:user_id] = user.id
-        redirect_to(:action => "index")
+        uri = session[:original_uri]
+        session[:original_uri] = nil
+        flash.now[:notice] = "Redirecting to #{uri}"
+        redirect_to(uri || {:action => "index"})
       else
         flash.now[:notice] = "Invalid user/password combination"
       end
