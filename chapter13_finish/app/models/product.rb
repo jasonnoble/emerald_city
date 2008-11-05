@@ -15,7 +15,7 @@ class Product < ActiveRecord::Base
   
   # Validates format of image_url ends with .gif or .jpg or .png
   validates_format_of :image_url,
-                      :with     =>  %r{\.(gif|jpg|png)}i,
+                      :with     =>  %r{\.(gif|jpg|png)$}i,
                       :message  =>  'must be a URL for GIF, JPG ' +
                                     'or PNG image.(gif|jpg|png)'
   
