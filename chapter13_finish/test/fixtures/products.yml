@@ -5,3 +5,9 @@ ruby_book:
     description:    Dummy description
     price:          1234
     image_url:      ruby.png
+
+rails_book:
+    title:          Agile Web Development with Rails
+    description:    Dummy description
+    price:          2345
+    image_url:      rails.png
