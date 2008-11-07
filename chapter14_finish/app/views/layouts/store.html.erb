@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html> 
+<head> 
+	<title>Pragprog Books Online Store</title> 
+	<%= stylesheet_link_tag "depot", :media => "all" %>
+	<%= javascript_include_tag :defaults %> 
+</head> 
+<body id="store"> 
+	<div id="banner"> 
+		<%= image_tag("logo.png") %> 
+		<%= @page_title || "Pragmatic Bookshelf" %> 
+	</div> 
+	<div id="columns"> 
+		<div id="side"> 
+			<% if @cart %>
+				<% hidden_div_if(@cart.items.empty?, :id => "cart") do %>
+					<%= render(:partial => "cart", :object => @cart) %>
+				<% end %>
+			<% end %>
+			<%= link_to 'Store', :controller => :store %><br />
+						
+			<% if session[:user_id] %>
+				<br />
+				<%= link_to 'Orders', 	:controller => 'admin' %><br />
+				<%= link_to 'Products', :controller => 'products' %><br />
+				<%= link_to 'Users', 	:controller => 'users' %><br />
+				<br />
+				<%= link_to 'Logout', :controller => :admin, :action => 'logout' %>
+			<% end %>
+		</div> 
+		<div id="main"> 
+			<% if flash[:notice] %>
+				<div id="notice"><%= flash[:notice] %></div>
+			<% end %>
+			<%= yield :layout %> 
+		</div> 
+	</div> 
+</body> 
+</html> 
