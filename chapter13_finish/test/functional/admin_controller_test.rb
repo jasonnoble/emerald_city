@@ -10,7 +10,7 @@ class AdminControllerTest < ActionController::TestCase
   
   def test_index
     get :index
-    assert_redirected_to :action => "login"
+    assert_redirected_to :controller => 'admin', :action => "login"
     assert_equal "Please log in", flash[:notice]
   end
   
@@ -31,5 +31,18 @@ class AdminControllerTest < ActionController::TestCase
     dave = users(:dave)
     post :login, :name => dave.name, :password => 'wrong'
     assert_template "login"
+    assert_equal flash[:notice], "Invalid user/password combination"
+  end
+  
+  def test_logout
+    get :index, {}, { :user_id => users(:dave).id}
+    assert_response :success
+    assert_template "index"
+    assert session[:user_id]
+    get :logout
+    assert !session[:user_id]
+    assert_equal flash[:notice], 'Logged out'
+    assert_redirected_to :action => :login
+    puts @
   end
 end

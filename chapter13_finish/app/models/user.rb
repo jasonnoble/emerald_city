@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :name
   
   attr_accessor :password_confirmation
+  validates_presence_of :password_confirmation
   validates_confirmation_of :password
   
   validate :password_non_blank
