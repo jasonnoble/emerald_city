@@ -1,0 +1,327 @@
+Script started on Wed Nov  5 11:19:38 2008
+bash-3.2$ cat app/views/info/who_bought.atom.builder 
+atom_feed do |feed|
+  feed.title "Who bought #{@product.title}"
+  feed.updated @orders.first.created_at
+  for order in @orders
+    feed.entry(order) do |entry|
+      entry.title "Order #{order.id}"
+      entry.summary :type => 'xhtml' do
+        entry.div :xmlns => 'http://www.w3.org/1999/xhtml' do |xhtml|
+          xhtml.p pluralize(order.line_items.count, "line item")
+          xhtml.p "Shipped to #{order.address}"
+          xhtml.p "Paid by #{order.pay_type}"
+        end
+      end
+      entry.author do |author|
+        entry.name order.name
+        entry.email order.email
+      end
+    end
+  end
+endbash-3.2$ cat app/views/[K[K[K[K[K[Kcontrollers/info_controller.rb 
+class InfoController < ApplicationController
+  def who_bought
+    @product = Product.find(params[:id])
+    @orders = @product.orders
+    respond_to do |format|
+      format.html
+      format.atom { render :layout => false }
+      #format.xml { render :layout => false,
+      #                    :xml => @product.to_xml(:include => :orders)}
+    end
+  end
+  protected
+  def authorize
+  end
+end
+bash-3.2$ curl --silent http://localhost:3000/info/who_bought/4.atom
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Action Controller: Exception caught</title>
+  <style>
+    body { background-color: #fff; color: #333; }
+
+    body, p, ol, ul, td {
+      font-family: verdana, arial, helvetica, sans-serif;
+      font-size:   13px;
+      line-height: 18px;
+    }
+
+    pre {
+      background-color: #eee;
+      padding: 10px;
+      font-size: 11px;
+    }
+
+    a { color: #000; }
+    a:visited { color: #666; }
+    a:hover { color: #fff; background-color:#000; }
+  </style>
+</head>
+<body>
+
+<h1>
+  NoMethodError in
+  Info#who_bought
+</h1>
+
+<p>
+  Showing <i>info/who_bought.atom.builder</i> where line <b>#5</b> raised:
+  <pre><code>undefined method `order_url' for #&lt;ActionView::Base:0x256c528&gt;</code></pre>
+</p>
+
+<p>Extracted source (around line <b>#5</b>):
+<pre><code>2:   feed.title &quot;Who bought #{@product.title}&quot;
+3:   feed.updated @orders.first.created_at
+4:   for order in @orders
+5:     feed.entry(order) do |entry|
+6:       entry.title &quot;Order #{order.id}&quot;
+7:       entry.summary :type =&gt; 'xhtml' do
+8:         entry.div :xmlns =&gt; 'http://www.w3.org/1999/xhtml' do |xhtml|
+</code></pre></p>
+
+<p></p>
+
+
+
+
+<p><code>RAILS_ROOT: /Users/jasonn/emerald_city/chapter12_finish</code></p>
+
+<div id="traces">
+  
+    
+    <a href="#" onclick="document.getElementById('Framework-Trace').style.display='none';document.getElementById('Full-Trace').style.display='none';document.getElementById('Application-Trace').style.display='block';; return false;">Application Trace</a> |
+  
+    
+    <a href="#" onclick="document.getElementById('Application-Trace').style.display='none';document.getElementById('Full-Trace').style.display='none';document.getElementById('Framework-Trace').style.display='block';; return false;">Framework Trace</a> |
+  
+    
+    <a href="#" onclick="document.getElementById('Application-Trace').style.display='none';document.getElementById('Framework-Trace').style.display='none';document.getElementById('Full-Trace').style.display='block';; return false;">Full Trace</a> 
+  
+
+  
+    <div id="Application-Trace" style="display: block;">
+      <pre><code>/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/polymorphic_routes.rb:105:in `send!'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/polymorphic_routes.rb:105:in `polymorphic_url'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_view/helpers/atom_feed_helper.rb:130:in `entry'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.1/lib/active_support/vendor/builder-2.1.2/builder/xmlbase.rb:134:in `call'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.1/lib/active_support/vendor/builder-2.1.2/builder/xmlbase.rb:134:in `_nested_structures'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.1/lib/active_support/vendor/builder-2.1.2/builder/xmlbase.rb:58:in `method_missing'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_view/helpers/atom_feed_helper.rb:119:in `entry'
+app/views/info/who_bought.atom.builder:5:in `_run_builder_47app47views47info47who_bought46atom46builder'
+app/views/info/who_bought.atom.builder:4:in `_run_builder_47app47views47info47who_bought46atom46builder'
+app/views/info/who_bought.atom.builder:1:in `_run_builder_47app47views47info47who_bought46atom46builder'
+app/controllers/info_controller.rb:7:in `who_bought'
+app/controllers/info_controller.rb:5:in `who_bought'</code></pre>
+    </div>
+  
+    <div id="Framework-Trace" style="display: none;">
+      <pre><code>/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/polymorphic_routes.rb:105:in `send!'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/polymorphic_routes.rb:105:in `polymorphic_url'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_view/helpers/atom_feed_helper.rb:130:in `entry'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.1/lib/active_support/vendor/builder-2.1.2/builder/xmlbase.rb:134:in `call'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.1/lib/active_support/vendor/builder-2.1.2/builder/xmlbase.rb:134:in `_nested_structures'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.1/lib/active_support/vendor/builder-2.1.2/builder/xmlbase.rb:58:in `method_missing'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_view/helpers/atom_feed_helper.rb:119:in `entry'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.1/lib/active_record/associations/association_collection.rb:277:in `method_missing'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.1/lib/active_record/associations/association_proxy.rb:171:in `method_missing'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.1/lib/active_record/associations/association_proxy.rb:171:in `each'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.1/lib/active_record/associations/association_proxy.rb:171:in `send'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.1/lib/active_record/associations/association_proxy.rb:171:in `method_missing'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.1/lib/active_record/associations/association_collection.rb:277:in `method_missing'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_view/helpers/atom_feed_helper.rb:96:in `atom_feed'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.1/lib/active_support/vendor/builder-2.1.2/builder/xmlbase.rb:134:in `call'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.1/lib/active_support/vendor/builder-2.1.2/builder/xmlbase.rb:134:in `_nested_structures'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.1/lib/active_support/vendor/builder-2.1.2/builder/xmlbase.rb:58:in `method_missing'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_view/helpers/atom_feed_helper.rb:91:in `atom_feed'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_view/base.rb:342:in `send'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_view/base.rb:342:in `execute'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_view/template_handlers/compilable.rb:29:in `send'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_view/template_handlers/compilable.rb:29:in `render'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_view/template.rb:35:in `render'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_view/template.rb:22:in `render_template'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_view/base.rb:248:in `render_file'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/base.rb:1112:in `render_for_file'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/base.rb:926:in `render_with_no_layout'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/layout.rb:259:in `render_without_benchmark'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/benchmarking.rb:51:in `render'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.1/lib/active_support/core_ext/benchmark.rb:8:in `realtime'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/benchmarking.rb:51:in `render'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/mime_responds.rb:131:in `call'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/mime_responds.rb:131:in `custom'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/mime_responds.rb:160:in `call'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/mime_responds.rb:160:in `respond'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/mime_responds.rb:154:in `each'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/mime_responds.rb:154:in `respond'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/mime_responds.rb:107:in `respond_to'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/base.rb:1166:in `send'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/base.rb:1166:in `perform_action_without_filters'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/filters.rb:579:in `call_filters'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/filters.rb:572:in `perform_action_without_benchmark'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+/usr/local/lib/ruby/1.8/benchmark.rb:293:in `measure'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/rescue.rb:201:in `perform_action_without_caching'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/caching/sql_cache.rb:13:in `perform_action'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.1/lib/active_record/connection_adapters/abstract/query_cache.rb:33:in `cache'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.1/lib/active_record/query_cache.rb:8:in `cache'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/caching/sql_cache.rb:12:in `perform_action'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/base.rb:529:in `send'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/base.rb:529:in `process_without_filters'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/filters.rb:568:in `process_without_session_management_support'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/session_management.rb:130:in `process'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/base.rb:389:in `process'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/dispatcher.rb:149:in `handle_request'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/dispatcher.rb:107:in `dispatch'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/dispatcher.rb:104:in `synchronize'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/dispatcher.rb:104:in `dispatch'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/dispatcher.rb:120:in `dispatch_cgi'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/dispatcher.rb:35:in `dispatch'
+/usr/local/lib/ruby/gems/1.8/gems/rails-2.1.1/lib/webrick_server.rb:112:in `handle_dispatch'
+/usr/local/lib/ruby/gems/1.8/gems/rails-2.1.1/lib/webrick_server.rb:78:in `service'
+/usr/local/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+/usr/local/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+/usr/local/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+/usr/local/lib/ruby/1.8/webrick/server.rb:162:in `start'
+/usr/local/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+/usr/local/lib/ruby/1.8/webrick/server.rb:95:in `start'
+/usr/local/lib/ruby/1.8/webrick/server.rb:92:in `each'
+/usr/local/lib/ruby/1.8/webrick/server.rb:92:in `start'
+/usr/local/lib/ruby/1.8/webrick/server.rb:23:in `start'
+/usr/local/lib/ruby/1.8/webrick/server.rb:82:in `start'
+/usr/local/lib/ruby/gems/1.8/gems/rails-2.1.1/lib/webrick_server.rb:62:in `dispatch'
+/usr/local/lib/ruby/gems/1.8/gems/rails-2.1.1/lib/commands/servers/webrick.rb:66
+/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `gem_original_require'
+/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.1/lib/active_support/dependencies.rb:510:in `require'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.1/lib/active_support/dependencies.rb:355:in `new_constants_in'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.1/lib/active_support/dependencies.rb:510:in `require'
+/usr/local/lib/ruby/gems/1.8/gems/rails-2.1.1/lib/commands/server.rb:39
+/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `gem_original_require'
+/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+script/server:3</code></pre>
+    </div>
+  
+    <div id="Full-Trace" style="display: none;">
+      <pre><code>/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/polymorphic_routes.rb:105:in `send!'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/polymorphic_routes.rb:105:in `polymorphic_url'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_view/helpers/atom_feed_helper.rb:130:in `entry'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.1/lib/active_support/vendor/builder-2.1.2/builder/xmlbase.rb:134:in `call'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.1/lib/active_support/vendor/builder-2.1.2/builder/xmlbase.rb:134:in `_nested_structures'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.1/lib/active_support/vendor/builder-2.1.2/builder/xmlbase.rb:58:in `method_missing'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_view/helpers/atom_feed_helper.rb:119:in `entry'
+app/views/info/who_bought.atom.builder:5:in `_run_builder_47app47views47info47who_bought46atom46builder'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.1/lib/active_record/associations/association_collection.rb:277:in `method_missing'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.1/lib/active_record/associations/association_proxy.rb:171:in `method_missing'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.1/lib/active_record/associations/association_proxy.rb:171:in `each'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.1/lib/active_record/associations/association_proxy.rb:171:in `send'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.1/lib/active_record/associations/association_proxy.rb:171:in `method_missing'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.1/lib/active_record/associations/association_collection.rb:277:in `method_missing'
+app/views/info/who_bought.atom.builder:4:in `_run_builder_47app47views47info47who_bought46atom46builder'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_view/helpers/atom_feed_helper.rb:96:in `atom_feed'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.1/lib/active_support/vendor/builder-2.1.2/builder/xmlbase.rb:134:in `call'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.1/lib/active_support/vendor/builder-2.1.2/builder/xmlbase.rb:134:in `_nested_structures'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.1/lib/active_support/vendor/builder-2.1.2/builder/xmlbase.rb:58:in `method_missing'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_view/helpers/atom_feed_helper.rb:91:in `atom_feed'
+app/views/info/who_bought.atom.builder:1:in `_run_builder_47app47views47info47who_bought46atom46builder'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_view/base.rb:342:in `send'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_view/base.rb:342:in `execute'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_view/template_handlers/compilable.rb:29:in `send'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_view/template_handlers/compilable.rb:29:in `render'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_view/template.rb:35:in `render'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_view/template.rb:22:in `render_template'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_view/base.rb:248:in `render_file'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/base.rb:1112:in `render_for_file'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/base.rb:926:in `render_with_no_layout'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/layout.rb:259:in `render_without_benchmark'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/benchmarking.rb:51:in `render'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.1/lib/active_support/core_ext/benchmark.rb:8:in `realtime'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/benchmarking.rb:51:in `render'
+app/controllers/info_controller.rb:7:in `who_bought'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/mime_responds.rb:131:in `call'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/mime_responds.rb:131:in `custom'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/mime_responds.rb:160:in `call'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/mime_responds.rb:160:in `respond'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/mime_responds.rb:154:in `each'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/mime_responds.rb:154:in `respond'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/mime_responds.rb:107:in `respond_to'
+app/controllers/info_controller.rb:5:in `who_bought'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/base.rb:1166:in `send'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/base.rb:1166:in `perform_action_without_filters'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/filters.rb:579:in `call_filters'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/filters.rb:572:in `perform_action_without_benchmark'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+/usr/local/lib/ruby/1.8/benchmark.rb:293:in `measure'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/rescue.rb:201:in `perform_action_without_caching'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/caching/sql_cache.rb:13:in `perform_action'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.1/lib/active_record/connection_adapters/abstract/query_cache.rb:33:in `cache'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.1/lib/active_record/query_cache.rb:8:in `cache'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/caching/sql_cache.rb:12:in `perform_action'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/base.rb:529:in `send'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/base.rb:529:in `process_without_filters'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/filters.rb:568:in `process_without_session_management_support'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/session_management.rb:130:in `process'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/base.rb:389:in `process'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/dispatcher.rb:149:in `handle_request'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/dispatcher.rb:107:in `dispatch'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/dispatcher.rb:104:in `synchronize'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/dispatcher.rb:104:in `dispatch'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/dispatcher.rb:120:in `dispatch_cgi'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-2.1.1/lib/action_controller/dispatcher.rb:35:in `dispatch'
+/usr/local/lib/ruby/gems/1.8/gems/rails-2.1.1/lib/webrick_server.rb:112:in `handle_dispatch'
+/usr/local/lib/ruby/gems/1.8/gems/rails-2.1.1/lib/webrick_server.rb:78:in `service'
+/usr/local/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+/usr/local/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+/usr/local/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+/usr/local/lib/ruby/1.8/webrick/server.rb:162:in `start'
+/usr/local/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+/usr/local/lib/ruby/1.8/webrick/server.rb:95:in `start'
+/usr/local/lib/ruby/1.8/webrick/server.rb:92:in `each'
+/usr/local/lib/ruby/1.8/webrick/server.rb:92:in `start'
+/usr/local/lib/ruby/1.8/webrick/server.rb:23:in `start'
+/usr/local/lib/ruby/1.8/webrick/server.rb:82:in `start'
+/usr/local/lib/ruby/gems/1.8/gems/rails-2.1.1/lib/webrick_server.rb:62:in `dispatch'
+/usr/local/lib/ruby/gems/1.8/gems/rails-2.1.1/lib/commands/servers/webrick.rb:66
+/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `gem_original_require'
+/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.1/lib/active_support/dependencies.rb:510:in `require'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.1/lib/active_support/dependencies.rb:355:in `new_constants_in'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.1/lib/active_support/dependencies.rb:510:in `require'
+/usr/local/lib/ruby/gems/1.8/gems/rails-2.1.1/lib/commands/server.rb:39
+/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `gem_original_require'
+/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+script/server:3</code></pre>
+    </div>
+  
+</div>
+
+
+
+
+
+
+
+<h2 style="margin-top: 30px">Request</h2>
+<p><b>Parameters</b>: <pre>{&quot;format&quot;=&gt;&quot;atom&quot;,
+ &quot;id&quot;=&gt;&quot;4&quot;}</pre></p>
+
+<p><a href="#" onclick="document.getElementById('session_dump').style.display='block'; return false;">Show session dump</a></p>
+<div id="session_dump" style="display:none"><pre class='debug_dump'>--- 
+flash: !map:ActionController::Flash::FlashHash {}
+
+</pre></div>
+
+
+<h2 style="margin-top: 30px">Response</h2>
+<p><b>Headers</b>: <pre>{&quot;cookie&quot;=&gt;[],
+ &quot;Content-Type&quot;=&gt;&quot;application/atom+xml&quot;,
+ &quot;Cache-Control&quot;=&gt;&quot;no-cache&quot;}</pre></p>
+
+
+
+</body>
+</html>bash-3.2$ exit
+
+Script done on Wed Nov  5 11:20:13 2008

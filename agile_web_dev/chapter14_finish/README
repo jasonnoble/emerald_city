@@ -1,0 +1,55 @@
+== Welcome to Rails
+
+== Getting Started
+
+1. This directory is the continuation of week 1.  If you have not completed the tasks from week 1, you should
+    run steps #2 and #3, otherwise skip to step #4.
+2. (Optional) Verify you can login to the database.  The username and passwords are in config/database.yml
+3. (Optional) Create the database by running "rake db:create" and "rake db:migrate".  If the database already exists,
+    you can run "rake db:migrate VERSION=0" and "rake db:migrate" to start over with this code.
+4. Start the server by running "ruby script/server"
+5. Go to http://localhost:3000/ and get "Welcome aboard: You're riding the Rails!"
+6. Start Reading Chapter 7 of Agile Web Development with Rails (Third Edition)
+
+== Week 2 Summary
+This week we added a shopping cart to our Depot application.  We added the Store controller and the associated view pages.
+
+Tasks Covered:
+	script/generate controller XXXXXXX YYYYYY YYYYYY (XXXXXXX = controller name, YYYYYY = function names in the controller)
+	Adding a class method to the Product model
+		def self.function_name
+	Implemented a view and a layout to improve how the store looks
+		app/views/store/...
+		app/layouts/...
+	Created a stylesheet for our application
+		public/stylesheets/depot.css
+	Used a helper function to format our Price in the views
+	Added a button (button_to) to provide a way for the customer to add a book to their shopping cart
+	
+== Past Weeks
+=== Week 1 Summary
+
+This week we added to our Depot shopping cart.  We added the Products Model and the scaffold
+pages needed to view the product details.
+
+Tasks Covered:
+	script/generate scaffold ________
+  Creating Database Migration Scripts
+  Migrating a database
+  Verified we could add/edit/destroy products via the website
+  Adding database fields/columns with a Migration
+  Adding fields/columns to our Views
+  Adding data validation to our Models to make sure valid data is put into the database
+    validates_presence_of
+    validates_numericality_of
+    validate # validate via a function
+    validates_uniqueness_of
+    validates_format_of
+  Adding test data to our database using migrations
+
+Homework Tasks:
+  Change the views so that the price has a $ in front of it
+  Add a new link to the Show Product page so a user can create a new Item from that page
+  Add a Author field to the Products table
+
+
