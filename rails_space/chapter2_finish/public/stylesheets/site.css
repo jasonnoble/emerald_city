@@ -1,0 +1,44 @@
+body { 
+	font-family: sans-serif; 
+	background: gray; 
+	margin: 0; 
+	text-align: center; 
+} 
+#whole_page { 
+	width: 50em; 
+	margin: auto; 
+	padding: 0; 
+	text-align: left; 
+	border-width: 0 1px 1px 1px; 
+	border-color: black; 
+	border-style: solid; 
+} 
+#header { 
+	color: white; 
+	background: maroon; /* No "ruby" defined in HTML color names! */ 
+	font-size: 24pt; 
+	padding: 0.25em; 
+	margin-bottom: 0; 
+} 
+#nav { 
+	color: black; 
+	font-size: 12pt; 
+	font-weight: bold; 
+	background: #ccc; 
+	padding: 0.5em; 
+} 
+#nav a, #nav a:visited { 
+	color: maroon; 
+	text-decoration: none; 
+} 
+#nav a:hover { 
+	border-bottom: 2px dotted maroon; 
+} 
+#content { 
+	height: 100%; 
+	background: white; 
+	padding: 1em; 
+} 
+#content h1 { 
+	font-size: 18pt; 
+} 
