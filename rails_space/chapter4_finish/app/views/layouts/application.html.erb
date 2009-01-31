@@ -1,0 +1,28 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html> 
+	<head> 
+		<title><%= @title %></title> 
+		<%= stylesheet_link_tag "site" %>
+	</head> 
+	<body> 
+		<div id="whole_page">
+			<div id="header">RailsSpace</div>
+			<div id="nav">
+				<%= nav_link "Home",			"site" %> |
+				<%= nav_link "About Us",	"site", "about" %> |
+				<%= nav_link "Help",			"site", "help" %> |
+				<%= nav_link "Register",	"user", "register" %>
+			</div>
+			<div id="content">
+				<% if flash[:notice] -%>
+					<div id="notice"><%= flash[:notice] %></div>
+				<% end %>
+				<%= @content_for_layout %>
+				<% if ENV["RAILS_ENV"] == "development" %> 
+					<%= debug(params) %> 
+				<% end %> 
+			</div>
+		</div>
+	</body> 
+</html> 

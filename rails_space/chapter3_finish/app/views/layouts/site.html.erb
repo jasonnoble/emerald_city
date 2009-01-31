@@ -1,0 +1,21 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html> 
+	<head> 
+		<title><%= @title %></title> 
+		<%= stylesheet_link_tag "site" %>
+	</head> 
+	<body> 
+		<div id="whole_page">
+			<div id="header">RailsSpace</div>
+			<div id="nav">
+				<%= link_to_unless_current "Home", 			:action => "index"	%> |
+				<%= link_to_unless_current "About Us", 	:action => "about"	%> |
+				<%= link_to_unless_current "Help", 			:action => "help"		%>
+			</div>
+			<div id="content">
+				<%= @content_for_layout %>
+			</div>
+		</div>
+	</body> 
+</html> 
