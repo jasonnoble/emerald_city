@@ -5,9 +5,9 @@ class SiteController; def rescue_action(e) raise e end; end
 
 class SiteControllerTest < ActionController::TestCase
   def setup 
-  @controller = SiteController.new 
-  @request = ActionController::TestRequest.new 
-  @response = ActionController::TestResponse.new 
+    @controller = SiteController.new 
+    @request = ActionController::TestRequest.new 
+    @response = ActionController::TestResponse.new 
   end 
   
   def test_index 

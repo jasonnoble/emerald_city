@@ -2,6 +2,7 @@ class UserController < ApplicationController
   
   def index
     @title = "RailsSpace User Hub"
+    @users = User.find(:all)
   end
 
   def register
