@@ -1508,3 +1508,330 @@ Processing UserController#register (for 0.0.0.0 at 2009-02-15 16:20:56) [POST]
 Redirected to actionindex
 Completed in 4ms (DB: 1) | 302 Found [http://test.host/user/register?user%5Bemail%5D=valid%40example.com&user%5Bpassword%5D=long_enough_password&user%5Bscreen_name%5D=new_screen_name]
   [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."screen_name" = 'new_screen_name' AND "users"."password" = 'long_enough_password') LIMIT 1[0m
+
+
+Processing SiteController#about (for 0.0.0.0 at 2009-02-15 16:31:52) [GET]
+Rendering template within layouts/application
+Rendering site/about
+Completed in 6ms (View: 4, DB: 1) | 200 OK [http://test.host/site/about]
+
+
+Processing SiteController#help (for 0.0.0.0 at 2009-02-15 16:31:52) [GET]
+Rendering template within layouts/application
+Rendering site/help
+Completed in 2ms (View: 2, DB: 0) | 200 OK [http://test.host/site/help]
+
+
+Processing SiteController#index (for 0.0.0.0 at 2009-02-15 16:31:52) [GET]
+Rendering template within layouts/application
+Rendering site/index
+Completed in 3ms (View: 2, DB: 0) | 200 OK [http://test.host/]
+
+
+Processing UserController#register (for 0.0.0.0 at 2009-02-15 16:31:52) [POST]
+  Parameters: {"user"=>{"screen_name"=>"aa/noyes", "password"=>"sun", "email"=>"anoyes@example,com"}}
+  [4;36;1mUser Exists (0.3ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."screen_name" = 'aa/noyes') LIMIT 1[0m
+  [4;35;1mUser Exists (0.2ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."email" = 'anoyes@example,com') LIMIT 1[0m
+Rendering template within layouts/application
+Rendering user/register
+Completed in 17ms (View: 5, DB: 1) | 200 OK [http://test.host/user/register?user%5Bemail%5D=anoyes%40example%2Ccom&user%5Bpassword%5D=sun&user%5Bscreen_name%5D=aa%2Fnoyes]
+
+
+Processing UserController#register (for 0.0.0.0 at 2009-02-15 16:31:52) [GET]
+Rendering template within layouts/application
+Rendering user/register
+Completed in 3ms (View: 3, DB: 0) | 200 OK [http://test.host/user/register]
+
+
+Processing UserController#register (for 0.0.0.0 at 2009-02-15 16:31:52) [POST]
+  Parameters: {"user"=>{"screen_name"=>"new_screen_name", "password"=>"long_enough_password", "email"=>"valid@example.com"}}
+  [4;36;1mUser Exists (0.2ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."screen_name" = 'new_screen_name') LIMIT 1[0m
+  [4;35;1mUser Exists (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."email" = 'valid@example.com') LIMIT 1[0m
+  [4;36;1mUser Create (0.4ms)[0m   [0;1mINSERT INTO "users" ("updated_at", "screen_name", "password", "email", "created_at") VALUES('2009-02-15 21:31:52', 'new_screen_name', 'long_enough_password', 'valid@example.com', '2009-02-15 21:31:52')[0m
+Redirected to actionindex
+Completed in 4ms (DB: 1) | 302 Found [http://test.host/user/register?user%5Bemail%5D=valid%40example.com&user%5Bpassword%5D=long_enough_password&user%5Bscreen_name%5D=new_screen_name]
+
+
+Processing SiteController#about (for 0.0.0.0 at 2009-02-15 17:04:51) [GET]
+Rendering template within layouts/application
+Rendering site/about
+Completed in 6ms (View: 4, DB: 1) | 200 OK [http://test.host/site/about]
+
+
+Processing SiteController#help (for 0.0.0.0 at 2009-02-15 17:04:51) [GET]
+Rendering template within layouts/application
+Rendering site/help
+Completed in 3ms (View: 2, DB: 0) | 200 OK [http://test.host/site/help]
+
+
+Processing SiteController#index (for 0.0.0.0 at 2009-02-15 17:04:51) [GET]
+Rendering template within layouts/application
+Rendering site/index
+Completed in 3ms (View: 2, DB: 0) | 200 OK [http://test.host/]
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+
+
+Processing UserController#login (for 0.0.0.0 at 2009-02-15 17:04:51) [GET]
+Rendering template within layouts/application
+Rendering user/login
+Completed in 5ms (View: 4, DB: 0) | 200 OK [http://test.host/user/login]
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+
+
+Processing UserController#register (for 0.0.0.0 at 2009-02-15 17:04:51) [POST]
+  Parameters: {"user"=>{"screen_name"=>"aa/noyes", "password"=>"sun", "email"=>"anoyes@example,com"}}
+  [4;36;1mUser Exists (0.2ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."screen_name" = 'aa/noyes') LIMIT 1[0m
+  [4;35;1mUser Exists (0.2ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."email" = 'anoyes@example,com') LIMIT 1[0m
+Rendering template within layouts/application
+Rendering user/register
+Completed in 14ms (View: 5, DB: 1) | 200 OK [http://test.host/user/register?user%5Bemail%5D=anoyes%40example%2Ccom&user%5Bpassword%5D=sun&user%5Bscreen_name%5D=aa%2Fnoyes]
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+
+
+Processing UserController#register (for 0.0.0.0 at 2009-02-15 17:04:51) [GET]
+Rendering template within layouts/application
+Rendering user/register
+Completed in 3ms (View: 3, DB: 0) | 200 OK [http://test.host/user/register]
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+
+
+Processing UserController#register (for 0.0.0.0 at 2009-02-15 17:04:51) [POST]
+  Parameters: {"user"=>{"screen_name"=>"new_screen_name", "password"=>"long_enough_password", "email"=>"valid@example.com"}}
+  [4;36;1mUser Exists (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."screen_name" = 'new_screen_name') LIMIT 1[0m
+  [4;35;1mUser Exists (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."email" = 'valid@example.com') LIMIT 1[0m
+  [4;36;1mUser Create (0.4ms)[0m   [0;1mINSERT INTO "users" ("updated_at", "screen_name", "password", "email", "created_at") VALUES('2009-02-15 22:04:51', 'new_screen_name', 'long_enough_password', 'valid@example.com', '2009-02-15 22:04:51')[0m
+Redirected to actionindex
+Completed in 4ms (DB: 1) | 302 Found [http://test.host/user/register?user%5Bemail%5D=valid%40example.com&user%5Bpassword%5D=long_enough_password&user%5Bscreen_name%5D=new_screen_name]
+
+
+Processing SiteController#about (for 0.0.0.0 at 2009-02-15 17:05:12) [GET]
+Rendering template within layouts/application
+Rendering site/about
+Completed in 6ms (View: 4, DB: 1) | 200 OK [http://test.host/site/about]
+
+
+Processing SiteController#help (for 0.0.0.0 at 2009-02-15 17:05:12) [GET]
+Rendering template within layouts/application
+Rendering site/help
+Completed in 3ms (View: 2, DB: 0) | 200 OK [http://test.host/site/help]
+
+
+Processing SiteController#index (for 0.0.0.0 at 2009-02-15 17:05:12) [GET]
+Rendering template within layouts/application
+Rendering site/index
+Completed in 3ms (View: 2, DB: 0) | 200 OK [http://test.host/]
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+
+
+Processing UserController#login (for 0.0.0.0 at 2009-02-15 17:05:12) [GET]
+Rendering template within layouts/application
+Rendering user/login
+Completed in 5ms (View: 3, DB: 0) | 200 OK [http://test.host/user/login]
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+
+
+Processing UserController#register (for 0.0.0.0 at 2009-02-15 17:05:12) [POST]
+  Parameters: {"user"=>{"screen_name"=>"aa/noyes", "password"=>"sun", "email"=>"anoyes@example,com"}}
+  [4;36;1mUser Exists (0.2ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."screen_name" = 'aa/noyes') LIMIT 1[0m
+  [4;35;1mUser Exists (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."email" = 'anoyes@example,com') LIMIT 1[0m
+Rendering template within layouts/application
+Rendering user/register
+Completed in 14ms (View: 5, DB: 1) | 200 OK [http://test.host/user/register?user%5Bemail%5D=anoyes%40example%2Ccom&user%5Bpassword%5D=sun&user%5Bscreen_name%5D=aa%2Fnoyes]
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+
+
+Processing UserController#register (for 0.0.0.0 at 2009-02-15 17:05:12) [GET]
+Rendering template within layouts/application
+Rendering user/register
+Completed in 3ms (View: 3, DB: 0) | 200 OK [http://test.host/user/register]
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+
+
+Processing UserController#register (for 0.0.0.0 at 2009-02-15 17:05:13) [POST]
+  Parameters: {"user"=>{"screen_name"=>"new_screen_name", "password"=>"long_enough_password", "email"=>"valid@example.com"}}
+  [4;36;1mUser Exists (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."screen_name" = 'new_screen_name') LIMIT 1[0m
+  [4;35;1mUser Exists (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."email" = 'valid@example.com') LIMIT 1[0m
+  [4;36;1mUser Create (0.4ms)[0m   [0;1mINSERT INTO "users" ("updated_at", "screen_name", "password", "email", "created_at") VALUES('2009-02-15 22:05:13', 'new_screen_name', 'long_enough_password', 'valid@example.com', '2009-02-15 22:05:13')[0m
+Redirected to actionindex
+Completed in 4ms (DB: 1) | 302 Found [http://test.host/user/register?user%5Bemail%5D=valid%40example.com&user%5Bpassword%5D=long_enough_password&user%5Bscreen_name%5D=new_screen_name]
+
+
+Processing SiteController#about (for 0.0.0.0 at 2009-02-15 17:09:00) [GET]
+Rendering template within layouts/application
+Rendering site/about
+Completed in 6ms (View: 4, DB: 1) | 200 OK [http://test.host/site/about]
+
+
+Processing SiteController#help (for 0.0.0.0 at 2009-02-15 17:09:00) [GET]
+Rendering template within layouts/application
+Rendering site/help
+Completed in 3ms (View: 2, DB: 0) | 200 OK [http://test.host/site/help]
+
+
+Processing SiteController#index (for 0.0.0.0 at 2009-02-15 17:09:00) [GET]
+Rendering template within layouts/application
+Rendering site/index
+Completed in 3ms (View: 2, DB: 0) | 200 OK [http://test.host/]
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+
+
+Processing UserController#login (for 0.0.0.0 at 2009-02-15 17:09:00) [GET]
+Rendering template within layouts/application
+Rendering user/login
+Completed in 5ms (View: 3, DB: 0) | 200 OK [http://test.host/user/login]
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+
+
+Processing UserController#login (for 0.0.0.0 at 2009-02-15 17:09:00) [POST]
+  Parameters: {"user"=>{"screen_name"=>"new_screen_name", "password"=>"long_enough_password"}}
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."password" = 'long_enough_password' AND "users"."screen_name" = 'new_screen_name') LIMIT 1[0m
+Rendering template within layouts/application
+Rendering user/login
+Completed in 6ms (View: 3, DB: 0) | 200 OK [http://test.host/user/login?user%5Bpassword%5D=long_enough_password&user%5Bscreen_name%5D=new_screen_name]
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+
+
+Processing UserController#register (for 0.0.0.0 at 2009-02-15 17:09:00) [POST]
+  Parameters: {"user"=>{"screen_name"=>"aa/noyes", "password"=>"sun", "email"=>"anoyes@example,com"}}
+  [4;36;1mUser Exists (0.2ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."screen_name" = 'aa/noyes') LIMIT 1[0m
+  [4;35;1mUser Exists (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."email" = 'anoyes@example,com') LIMIT 1[0m
+Rendering template within layouts/application
+Rendering user/register
+Completed in 12ms (View: 5, DB: 1) | 200 OK [http://test.host/user/register?user%5Bemail%5D=anoyes%40example%2Ccom&user%5Bpassword%5D=sun&user%5Bscreen_name%5D=aa%2Fnoyes]
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+
+
+Processing UserController#register (for 0.0.0.0 at 2009-02-15 17:09:00) [GET]
+Rendering template within layouts/application
+Rendering user/register
+Completed in 3ms (View: 3, DB: 0) | 200 OK [http://test.host/user/register]
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+
+
+Processing UserController#register (for 0.0.0.0 at 2009-02-15 17:09:00) [POST]
+  Parameters: {"user"=>{"screen_name"=>"new_screen_name", "password"=>"long_enough_password", "email"=>"valid@example.com"}}
+  [4;36;1mUser Exists (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."screen_name" = 'new_screen_name') LIMIT 1[0m
+  [4;35;1mUser Exists (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."email" = 'valid@example.com') LIMIT 1[0m
+  [4;36;1mUser Create (0.3ms)[0m   [0;1mINSERT INTO "users" ("updated_at", "screen_name", "password", "email", "created_at") VALUES('2009-02-15 22:09:00', 'new_screen_name', 'long_enough_password', 'valid@example.com', '2009-02-15 22:09:00')[0m
+Redirected to actionindex
+Completed in 4ms (DB: 1) | 302 Found [http://test.host/user/register?user%5Bemail%5D=valid%40example.com&user%5Bpassword%5D=long_enough_password&user%5Bscreen_name%5D=new_screen_name]
+
+
+Processing SiteController#about (for 0.0.0.0 at 2009-02-15 17:10:23) [GET]
+Rendering template within layouts/application
+Rendering site/about
+Completed in 7ms (View: 5, DB: 1) | 200 OK [http://test.host/site/about]
+
+
+Processing SiteController#help (for 0.0.0.0 at 2009-02-15 17:10:23) [GET]
+Rendering template within layouts/application
+Rendering site/help
+Completed in 3ms (View: 3, DB: 0) | 200 OK [http://test.host/site/help]
+
+
+Processing SiteController#index (for 0.0.0.0 at 2009-02-15 17:10:23) [GET]
+Rendering template within layouts/application
+Rendering site/index
+Completed in 3ms (View: 2, DB: 0) | 200 OK [http://test.host/]
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+
+
+Processing UserController#login (for 0.0.0.0 at 2009-02-15 17:10:23) [GET]
+Rendering template within layouts/application
+Rendering user/login
+Completed in 6ms (View: 4, DB: 0) | 200 OK [http://test.host/user/login]
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+
+
+Processing UserController#login (for 0.0.0.0 at 2009-02-15 17:10:23) [POST]
+  Parameters: {"user"=>{"screen_name"=>"millikan", "password"=>"electron"}}
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."password" = 'electron' AND "users"."screen_name" = 'millikan') LIMIT 1[0m
+Redirected to actionindex
+Completed in 3ms (DB: 1) | 302 Found [http://test.host/user/login?user%5Bpassword%5D=electron&user%5Bscreen_name%5D=millikan]
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+
+
+Processing UserController#register (for 0.0.0.0 at 2009-02-15 17:10:23) [POST]
+  Parameters: {"user"=>{"screen_name"=>"aa/noyes", "password"=>"sun", "email"=>"anoyes@example,com"}}
+  [4;36;1mUser Exists (0.2ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."screen_name" = 'aa/noyes') LIMIT 1[0m
+  [4;35;1mUser Exists (0.2ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."email" = 'anoyes@example,com') LIMIT 1[0m
+Rendering template within layouts/application
+Rendering user/register
+Completed in 14ms (View: 6, DB: 1) | 200 OK [http://test.host/user/register?user%5Bemail%5D=anoyes%40example%2Ccom&user%5Bpassword%5D=sun&user%5Bscreen_name%5D=aa%2Fnoyes]
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+
+
+Processing UserController#register (for 0.0.0.0 at 2009-02-15 17:10:23) [GET]
+Rendering template within layouts/application
+Rendering user/register
+Completed in 4ms (View: 4, DB: 0) | 200 OK [http://test.host/user/register]
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+
+
+Processing UserController#register (for 0.0.0.0 at 2009-02-15 17:10:23) [POST]
+  Parameters: {"user"=>{"screen_name"=>"new_screen_name", "password"=>"long_enough_password", "email"=>"valid@example.com"}}
+  [4;36;1mUser Exists (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."screen_name" = 'new_screen_name') LIMIT 1[0m
+  [4;35;1mUser Exists (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."email" = 'valid@example.com') LIMIT 1[0m
+  [4;36;1mUser Create (0.4ms)[0m   [0;1mINSERT INTO "users" ("updated_at", "screen_name", "password", "email", "created_at") VALUES('2009-02-15 22:10:23', 'new_screen_name', 'long_enough_password', 'valid@example.com', '2009-02-15 22:10:23')[0m
+Redirected to actionindex
+Completed in 5ms (DB: 1) | 302 Found [http://test.host/user/register?user%5Bemail%5D=valid%40example.com&user%5Bpassword%5D=long_enough_password&user%5Bscreen_name%5D=new_screen_name]
+
+
+Processing SiteController#about (for 0.0.0.0 at 2009-02-15 17:10:58) [GET]
+Rendering template within layouts/application
+Rendering site/about
+Completed in 7ms (View: 6, DB: 1) | 200 OK [http://test.host/site/about]
+
+
+Processing SiteController#help (for 0.0.0.0 at 2009-02-15 17:10:58) [GET]
+Rendering template within layouts/application
+Rendering site/help
+Completed in 3ms (View: 3, DB: 0) | 200 OK [http://test.host/site/help]
+
+
+Processing SiteController#index (for 0.0.0.0 at 2009-02-15 17:10:58) [GET]
+Rendering template within layouts/application
+Rendering site/index
+Completed in 3ms (View: 2, DB: 0) | 200 OK [http://test.host/]
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+
+
+Processing UserController#login (for 0.0.0.0 at 2009-02-15 17:10:58) [GET]
+Rendering template within layouts/application
+Rendering user/login
+Completed in 6ms (View: 4, DB: 0) | 200 OK [http://test.host/user/login]
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+
+
+Processing UserController#login (for 0.0.0.0 at 2009-02-15 17:10:58) [POST]
+  Parameters: {"user"=>{"screen_name"=>"millikan", "password"=>"electron"}}
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."password" = 'electron' AND "users"."screen_name" = 'millikan') LIMIT 1[0m
+Redirected to actionindex
+Completed in 2ms (DB: 1) | 302 Found [http://test.host/user/login?user%5Bpassword%5D=electron&user%5Bscreen_name%5D=millikan]
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+
+
+Processing UserController#register (for 0.0.0.0 at 2009-02-15 17:10:58) [POST]
+  Parameters: {"user"=>{"screen_name"=>"aa/noyes", "password"=>"sun", "email"=>"anoyes@example,com"}}
+  [4;36;1mUser Exists (0.2ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."screen_name" = 'aa/noyes') LIMIT 1[0m
+  [4;35;1mUser Exists (0.2ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."email" = 'anoyes@example,com') LIMIT 1[0m
+Rendering template within layouts/application
+Rendering user/register
+Completed in 14ms (View: 5, DB: 1) | 200 OK [http://test.host/user/register?user%5Bemail%5D=anoyes%40example%2Ccom&user%5Bpassword%5D=sun&user%5Bscreen_name%5D=aa%2Fnoyes]
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+
+
+Processing UserController#register (for 0.0.0.0 at 2009-02-15 17:10:58) [GET]
+Rendering template within layouts/application
+Rendering user/register
+Completed in 3ms (View: 3, DB: 0) | 200 OK [http://test.host/user/register]
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+
+
+Processing UserController#register (for 0.0.0.0 at 2009-02-15 17:10:58) [POST]
+  Parameters: {"user"=>{"screen_name"=>"new_screen_name", "password"=>"long_enough_password", "email"=>"valid@example.com"}}
+  [4;36;1mUser Exists (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."screen_name" = 'new_screen_name') LIMIT 1[0m
+  [4;35;1mUser Exists (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."email" = 'valid@example.com') LIMIT 1[0m
+  [4;36;1mUser Create (0.4ms)[0m   [0;1mINSERT INTO "users" ("updated_at", "screen_name", "password", "email", "created_at") VALUES('2009-02-15 22:10:58', 'new_screen_name', 'long_enough_password', 'valid@example.com', '2009-02-15 22:10:58')[0m
+Redirected to actionindex
+Completed in 4ms (DB: 1) | 302 Found [http://test.host/user/register?user%5Bemail%5D=valid%40example.com&user%5Bpassword%5D=long_enough_password&user%5Bscreen_name%5D=new_screen_name]
