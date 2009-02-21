@@ -26,3 +26,4 @@ Bookshelf are released under the GPL v2.0 license.
 
 This is line 1
 This is line 2
+This is line 3
