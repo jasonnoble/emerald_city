@@ -5,14 +5,8 @@
 # For numbers which are multiples of both three and five print "FizzBuzz".
 
 1.upto(100) do |number|
-  if number % 3 == 0
-    print "Fizz"
-  else
-    print "#{number}\n"
-  end
-  if number % 5 == 0
-    print "Buzz\n"
-  else
-    print "\n"
-  end
+  print "Fizz" if number % 3 == 0
+  print "Buzz" if number % 5 == 0
+  print number if number % 3 != 0 && number % 5 != 0
+  print "\n"
 end

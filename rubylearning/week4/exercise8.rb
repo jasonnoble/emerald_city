@@ -10,26 +10,29 @@
   # Average number of words per sentence
   # Average number of sentences per paragraph
   
-character_count = 0
-character_count_exclude_spaces = 0
-line_count = 0
-word_count = 0
-sentence_count = 0
-paragraph_count = 0
-average_number_of_words_per_sentence = 0
-average_number_of_sentences_per_paragraph = 0
-
-File.open("text.txt", "r") do |file|
-  while line = file.gets
-    line.chomp!
-    line_count += 1
-    character_count += line.length
-    character_count_exclude_spaces += line.split(%r{\s*}).length
-    word_count += line.split.length
+def text_analyzer(file)
+  stats = Hash.new {|h,k| h[k] = 0}
+  IO.foreach(file) do |line|
+    stats[:line_count] += 1
+    stats[:char_count] += line.length
+    stats[:char_count_no_spaces] += line.gsub(/ /,'').length
+    stats[:word_count] += line.split(" ").length
+    stats[:sentence_count] += line.scan(/[.!?]/).length
+    line.length == 2 ? stats[:paragraph_count] += 1 : line
   end
+  stats
+end
+def report_all(stats)
+  stats.each_pair do |key, value|
+    puts "#{key}: #{value}"
+  end
+  puts "Average number of words per sentence: #{stats[:word_count] / stats[:sentence_count]}"
+  puts "Average number of sentences per paragraph: #{stats[:sentence_count] / stats[:paragraph_count]}"
 end
 
-printf("%50s: %d\n", "Total Number of characters", character_count)
-printf("%50s: %d\n", "Total Number of characters (no spaces)", character_count_exclude_spaces)
-printf("%50s: %d\n", "Total Number of lines", line_count)
-printf("%50s: %d\n", "Total Number of words", word_count)
+statistics = text_analyzer 'text.txt'
+
+# Only word count
+puts "Word count: #{statistics[:word_count]}"
+# Or whole set
+report_all statistics
