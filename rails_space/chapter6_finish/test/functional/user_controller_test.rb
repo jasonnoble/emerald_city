@@ -4,6 +4,7 @@ require 'user_controller'
 # Re-raise errors caught by the controller. 
 class UserController; def rescue_action(e) raise e end; end 
 class UserControllerTest < Test::Unit::TestCase 
+  include ApplicationHelper
   fixtures :users
   def setup 
     @controller = UserController.new 
@@ -90,7 +91,7 @@ class UserControllerTest < Test::Unit::TestCase
                         :parent     => error_div 
     assert_tag "input", 
       :attributes => {  :name       => "user[password]", 
-                        :value      => "sun" }, 
+                        :value      => nil }, 
                         :parent     => error_div 
   end 
   
@@ -103,7 +104,7 @@ class UserControllerTest < Test::Unit::TestCase
     user = assigns(:user)
     
     # Make sure user is logged in properly
-    assert_not_nil session[:user_id]
+    assert logged_in?
     assert_equal user.id, session[:user_id]
   end
   
@@ -137,16 +138,92 @@ class UserControllerTest < Test::Unit::TestCase
     try_to_login @valid_user
     
     # Make sure user is logged in properly
-    assert_not_nil session[:user_id]
+    assert logged_in?
     assert_equal @valid_user.id, session[:user_id]
     assert_equal "User #{@valid_user.screen_name} logged in!", flash[:notice]
     assert_redirected_to :action => "index"
   end
-  
+  def test_login_failure_with_nonexistant_screen_name
+    invalid_user = @valid_user
+    invalid_user.screen_name = "no such user"
+    try_to_login invalid_user
+    assert_template "login"
+    assert_equal "Invalid screen name/password combination", flash[:notice]
+    # Make sure screen_name will be redisplayed, but not the password
+    user = assigns(:user)
+    assert_equal invalid_user.screen_name, user.screen_name
+    assert_nil user.password
+  end
+  def test_login_failure_with_wrong_password
+    invalid_user = @valid_user
+    invalid_user.password += "baz"
+    try_to_login invalid_user
+    assert_template "login"
+    assert_equal "Invalid screen name/password combination", flash[:notice]
+    # Make sure screen_name will be redisplayed, but not the password
+    user = assigns(:user)
+    assert_equal invalid_user.screen_name, user.screen_name
+    assert_nil user.password
+  end
+  def test_logout
+    try_to_login @valid_user
+    
+    # Make sure user is logged in properly
+    assert logged_in?
+    get :logout
+    assert_response :redirect
+    assert_redirected_to :action => "index", :controller => "site"
+    assert_equal "Logged out", flash[:notice] 
+    assert !logged_in?
+  end
+  def test_navigation_logged_in
+    authorize @valid_user
+    get :index
+    assert_tag "a",     :content => /Logout/,   :attributes => {:href => "/user/logout" }
+    assert_no_tag "a",  :content => /Register/
+    assert_no_tag "a",  :content => /Login/
+  end
+  def test_index_unauthorized
+    # Make sure the before filter is working.
+    get :index
+    assert_response :redirect
+    assert_redirected_to :action => "login"
+    assert_equal "Please log in first", flash[:notice]
+  end
+  def test_index_authorized
+    authorize @valid_user
+    get :index
+    assert_response :success
+    assert_template "index"
+  end
+  def test_login_friendly_url_forwarding
+    user = {  :screen_name => @valid_user.screen_name, 
+              :password => @valid_user.password }
+    friendly_url_forwarding_aux(:login, :index, user)
+  end
+  def test_register_friendly_url_forwarding
+    user = {  :screen_name  => "new_screen_name", 
+              :email        => "valid@example.com",
+              :password     => "long_enough_password" }
+    friendly_url_forwarding_aux(:register, :index, user)
+  end
   private
   def try_to_login(user)
     post :login, :user => { :screen_name  => user.screen_name,
                             :password     => user.password }
+  end
+  def authorize(user)
+    @request.session[:user_id] = user.id
+  end
+  def friendly_url_forwarding_aux(test_page, protected_page, user)
+    get protected_page
+    assert_response :redirect
+    assert_redirected_to :action => "login"
+    post test_page, :user => user
+    assert_response :redirect
+    assert_redirected_to :action => protected_page
+    # Make sure the forwarding url has been cleared
+    assert_nil session[:protected_page]
   end
 end 
 
