@@ -130,6 +130,9 @@ class UserControllerTest < Test::Unit::TestCase
                         :size         => User::PASSWORD_SIZE, 
                         :maxlength    => User::PASSWORD_MAX_LENGTH } 
     assert_tag "input", 
+      :attributes => {  :name         => "user[remember_me]", 
+                        :type         => "checkbox", }
+    assert_tag "input", 
       :attributes => {  :type         => "submit", 
                         :value        => "Login!" } 
   end
@@ -141,7 +144,38 @@ class UserControllerTest < Test::Unit::TestCase
     assert logged_in?
     assert_equal @valid_user.id, session[:user_id]
     assert_equal "User #{@valid_user.screen_name} logged in!", flash[:notice]
+    assert_response :redirect
     assert_redirected_to :action => "index"
+    
+    # Verify that we're not remembering the user
+    user = assigns(:user)
+    assert user.remember_me != "1"
+    # There should be no cookies set
+    assert_nil cookie_value(:remember_me)
+    assert_nil cookie_value(:authorization_token)
+  end
+  def test_login_success_with_remember_me
+    try_to_login @valid_user, :remember_me => "1"
+    test_time = Time.now
+    
+    # Make sure user is logged in properly
+    assert logged_in?
+    assert_equal @valid_user.id, session[:user_id]
+    assert_equal "User #{@valid_user.screen_name} logged in!", flash[:notice]
+    assert_response :redirect
+    assert_redirected_to :action => "index"
+    
+    # Check cookies and expiration dates
+    user = User.find(@valid_user.id)
+    time_range = 100 # microseconds range for time agreement
+    
+    # Remember me cookie
+    assert_equal "1", cookie_value(:remember_me)
+    assert_in_delta 10.years.from_now(test_time), cookie_expires(:remember_me), time_range
+    
+    # Authorization Cookie
+    assert_equal user.authorization_token, cookie_value(:authorization_token)
+    assert_in_delta 10.years.from_now(test_time), cookie_expires(:authorization_token), time_range
   end
   def test_login_failure_with_nonexistant_screen_name
     invalid_user = @valid_user
@@ -166,15 +200,17 @@ class UserControllerTest < Test::Unit::TestCase
     assert_nil user.password
   end
   def test_logout
-    try_to_login @valid_user
+    try_to_login @valid_user, :remember_me => "1"
     
     # Make sure user is logged in properly
     assert logged_in?
+    assert_not_nil cookie_value(:authorization_token)
     get :logout
     assert_response :redirect
     assert_redirected_to :action => "index", :controller => "site"
     assert_equal "Logged out", flash[:notice] 
     assert !logged_in?
+    assert_nil cookie_value(:authorization_token)
   end
   def test_navigation_logged_in
     authorize @valid_user
@@ -208,9 +244,11 @@ class UserControllerTest < Test::Unit::TestCase
     friendly_url_forwarding_aux(:register, :index, user)
   end
   private
-  def try_to_login(user)
-    post :login, :user => { :screen_name  => user.screen_name,
-                            :password     => user.password }
+  def try_to_login(user, options = {})
+    user_hash = { :screen_name  => user.screen_name,
+                   :password     => user.password }
+    user_hash.merge!(options)
+    post :login, :user => user_hash
   end
   def authorize(user)
     @request.session[:user_id] = user.id
@@ -224,6 +262,15 @@ class UserControllerTest < Test::Unit::TestCase
     assert_redirected_to :action => protected_page
     # Make sure the forwarding url has been cleared
     assert_nil session[:protected_page]
+  end
+  # Return the cookie value given a symbol
+  def cookie_value(symbol)
+    cookies[symbol.to_s].value.first
+  end
+  
+  # Return the cookie expiration given a symbol
+  def cookie_expires(symbol)
+    cookies[symbol.to_s].expires
   end
 end 
 
