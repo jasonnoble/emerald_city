@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html> 
+	<head> 
+		<title><%= @title %></title> 
+		<%= stylesheet_link_tag "site" %>
+		<%= javascript_include_tag :defaults %>
+	</head> 
+	<body> 
+		<div id="whole_page">
+			<div id="header">RailsSpace</div>
+			<div id="nav">
+				<span style="float: right">
+					<% if logged_in? %>
+						<%= nav_link "Hub",				"user", "index" %> |
+						<%= nav_link "Logout",		"user", "logout" %>
+					<% else -%>
+						<%= nav_link "Register",	"user", "register" %> |
+						<%= nav_link "Login",			"user", "login" %>
+					<% end %>
+				</span>
+				<%= nav_link "Home",			"site" %> |
+				<%= nav_link "About Us",	"site", "about" %> |
+				<%= nav_link "Help",			"site", "help" %>
+			</div>
+			<div id="content">
+				<% if flash[:notice] -%>
+					<div id="notice"><%= flash[:notice] %></div>
+				<% end %>
+				<%= @content_for_layout %>
+			</div>
+		</div>
+		<% if ENV["RAILS_ENV"] == "development" %> 
+			<div>
+				<a href="#" onclick="Element.toggle('params_debug_info');return false">params</a> |
+				<a href="#" onclick="Element.toggle('session_debug_info');return false">session</a> |
+				<a href="#" onclick="Element.toggle('env_debug_info');return false">env</a> |
+				<a href="#" onclick="Element.toggle('request_debug_info');return false">request</a>
+				<fieldset id="params_debug_info" class="debug_info" style="display:none">
+					<legend>params</legend>
+					<%= debug(params) %> 
+				</fieldset>	
+				<fieldset id="session_debug_info" class="debug_info" style="display:none">
+					<legend>session</legend>
+					<%= debug(session) %>
+				</fieldset>
+				<fieldset id="env_debug_info" class="debug_info" style="display:none">
+					<legend>env</legend>
+					<%= debug(request.env) %>
+				</fieldset>
+				<fieldset id="request_debug_info" class="debug_info" style="display:none">
+					<legend>request</legend>
+					<%= debug(request) %>
+				</fieldset>
+			</div>
+		<% end %>
+	</body> 
+</html> 
