@@ -1,0 +1,16 @@
+./tsftpc.rb
+./text.txt
+./quiz_explanation.pdf
+./quiz_empty.pdf
+./old-inventory.txt
+./new-inventory.txt
+./inventory.rb
+./exercise6.rb
+./exercise5.rb
+./exercise4.rb
+./exercise3.rb
+./exercise2.rb
+./exercise1.rb
+./blah/blah.txt
+./B
+./A
