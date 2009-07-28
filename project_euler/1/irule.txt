@@ -1,0 +1,10 @@
+when HTTP_REQUEST {
+	set metros_pool "metros.qa.apartmentguide.com"
+	set req_uri [string tolower HTTP::uri]
+	   
+  # Check if the URI starts with /admin or equals / 
+  if { $req_uri equals "/" or $req_uri starts_with "/admin"} {
+    use pool $metros_pool
+  }
+  # Default is neighborhoods
+}
