@@ -7,4 +7,10 @@ Vagrant::Config.run do |config|
   config.vm.box = "base"
   config.vm.provisioner = :chef_solo
   config.vm.forward_port "dev server", 3000, 3000
+
+  config.chef.json.merge!( {
+    :mysql => {
+      :server_root_password => "admin"
+    }
+  })
 end
