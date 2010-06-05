@@ -5,4 +5,6 @@ Vagrant::Config.run do |config|
 
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "base"
+  config.vm.provisioner = :chef_solo
+  config.vm.forward_port "dev server", 3000, 3000
 end
