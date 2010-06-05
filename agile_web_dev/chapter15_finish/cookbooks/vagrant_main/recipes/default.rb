@@ -8,6 +8,10 @@ gem_package "rails" do
   action :install
 end
 
+gem_package "mongrel" do
+  action :install
+end
+
 include_recipe "mysql::client"
 include_recipe "mysql::server"
 
